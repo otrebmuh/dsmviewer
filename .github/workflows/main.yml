@@ -5,6 +5,9 @@ jobs:
   depends_analysis_job:
     runs-on: ubuntu-latest
     name: Perform dependency analysis
+    container: 
+      image: otrebmuh/depends-dv8-wrapper-entrypoint:latest
+      options: "-ti"
     steps:
       # To use this repository's private action,
       # you must check out the repository
@@ -13,8 +16,9 @@ jobs:
       - name: Trace 
         run: echo "The code is  ${{ secrets.ACTIVATIONCODE }}"
       - name: Depends analysis step
-        uses: otrebmuh/dv8-github-action@v0.5
         id: depends
+#        uses: otrebmuh/dv8-github-action@v0.6
+        run: /entrypoint.sh
         with:
           language: 'java'
           licenseKey: ${{ secrets.LICENSEKEY }}
